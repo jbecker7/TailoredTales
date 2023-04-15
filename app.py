@@ -8,7 +8,7 @@ app = Flask(__name__, static_url_path='/static')
 if __name__ == '__main__':
     app.run(debug=False)
 
-openai.api_key = ""
+openai.api_key = "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"
 
 TEMPERATURE = 0.5
 MAX_TOKENS = 500
@@ -142,6 +142,12 @@ def redo(option):
     USER_LEVEL=new_level
     result=get_response(PREVIOUS, USER_LANGUAGE, new_level, USER_TOPIC, USER_LENGTH)
     return result
+
+@app.route('/redo_article', methods=['POST'])
+def redo_article():
+    option = request.form['option']
+    new_article_content = redo(option)
+    return jsonify({"new_article_content": new_article_content})
 
 @app.route('/result', methods=['POST'])
 def result():
