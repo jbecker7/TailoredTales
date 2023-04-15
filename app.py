@@ -132,18 +132,18 @@ def redo(option):
     if option == "too easy": 
         level_num+=1
         if level_num==7: 
-            result=get_response(PREVIOUS, USER_LANGUAGE, level_num, USER_TOPIC, USER_LENGTH)
+            result=get_response([], USER_LANGUAGE, level_num, USER_TOPIC, USER_LENGTH)
             return result
     elif option == "too hard": 
         level_num-=1
         if level_num==0: 
-            result=get_response(PREVIOUS, USER_LANGUAGE, level_num, USER_TOPIC, USER_LENGTH)
+            result=get_response([], USER_LANGUAGE, level_num, USER_TOPIC, USER_LENGTH)
             return result
     else: 
         return None 
     new_level=get_key(level_num,dict)
     USER_LEVEL=new_level
-    result=get_response(PREVIOUS, USER_LANGUAGE, new_level, USER_TOPIC, USER_LENGTH)
+    result=get_response([], USER_LANGUAGE, new_level, USER_TOPIC, USER_LENGTH)
     return result
 
 def take_quiz():
