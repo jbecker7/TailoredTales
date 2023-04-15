@@ -7,7 +7,7 @@ app = Flask(__name__, static_url_path='/static')
 if __name__ == '__main__':
     app.run(debug=False)
 
-openai.api_key = "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"
+openai.api_key = ""
 
 TEMPERATURE = 0.5
 MAX_TOKENS = 500
