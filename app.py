@@ -147,10 +147,10 @@ def redo(option):
     return result
 
 def take_quiz():
-    prompt="""Generate a python dictionary containing a multiple choice quiz with at most 6 questions in """+ USER_LANGUAGE + """ and give the corresponding answer key. The multiple choice quiz should function like a reading comprehension quiz on the previous article and should quiz the user on their comprehension of the article. Make sure that all questions can be answered solely based on the content from the previous article. Users should not be quizzed on things not mentioned in the previous article. 
-            Format the response in the format of a python dictionary where the key is a string containing the question along with the choices and the value is a string containing the answer. Format it like the following: 
-            quiz = {"1. Question \nA. optionA \nB. optionB\nC. optionC\nD. optionD\n”: “answer”,“2. Question \nA. optionA \nB. optionB\nC. optionC\nD. optionD\n”: “answer”,“3. Question \nA. optionA \nB. optionB\nC. optionC\nD. optionD\n”: “answer”,“4. Question \nA. optionA \nB. optionB\nC. optionC\nD. optionD\n”: “answer”,“5. Question \nA. optionA \nB. optionB\nC. optionC\nD. optionD\n”: “answer”,“6. Question \nA. optionA \nB. optionB\nC. optionC\nD. optionD\n”: “answer”,“7. Question \nA. optionA \nB. optionB\nC. optionC\nD. optionD\n”: “answer”,“8. Question \nA. optionA \nB. optionB\nC. optionC\nD. optionD\n”: “answer”,“9. Question \nA. optionA \nB. optionB\nC. optionC\nD. optionD\n”: “answer”,“10. Question \nA. optionA \nB. optionB\nC. optionC\nD. optionD\n”: “answer”}
-            only return a single dictionary."""
+    prompt="""Generate a multiple choice quiz with at most 6 questions in """+ USER_LANGUAGE + """ and give the answer key. 
+            The multiple choice quiz should function like a reading comprehension quiz on the previous article and should quiz the user on their comprehension of the article. 
+            Make sure that all questions can be answered solely based on the content from the previous article. Users should not be quizzed on things not mentioned in the previous article. 
+           ."""
 
     messages = [
         { "role": "system", "content": prompt },
@@ -167,12 +167,12 @@ def take_quiz():
         frequency_penalty=FREQUENCY_PENALTY,
         presence_penalty=PRESENCE_PENALTY,
     )
-    str_dict=completion.choices[0].message.content
+    str=completion.choices[0].message.content
 
     messages = [
-        { "role": "system", "content": f"convert this to json format {str_dict}" },
+        { "role": "system", "content": f"convert this to json format {str}" },
     ]
-    print(messages)
+    # print(messages)
     completion = openai.ChatCompletion.create(
         model="gpt-3.5-turbo",
         messages=messages,
@@ -183,10 +183,8 @@ def take_quiz():
         presence_penalty=PRESENCE_PENALTY,
     )
     json_dict=completion.choices[0].message.content
-    print(json_dict)
-    dict = json.loads(json_dict)
-    print(dict)
-    return dict
+    # print(json_dict)
+    return json_dict
 
 @app.route('/redo_article', methods=['POST'])
 def redo_article():
