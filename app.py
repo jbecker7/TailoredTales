@@ -170,9 +170,8 @@ def take_quiz():
     str_dict=completion.choices[0].message.content
 
     messages = [
-        { "role": "system", "content": f"convert this to json format {str_dict}" },
+        { "role": "system", "content": f"convert this to json format {str}" },
     ]
-    print(messages)
     completion = openai.ChatCompletion.create(
         model="gpt-3.5-turbo",
         messages=messages,
@@ -183,10 +182,9 @@ def take_quiz():
         presence_penalty=PRESENCE_PENALTY,
     )
     json_dict=completion.choices[0].message.content
-    print(json_dict)
-    dict = json.loads(json_dict)
-    print(dict)
-    return dict
+    data=json.loads(json_dict)
+    result = {q["question"] + "\n" + "\n".join(q["options"]): q["answer"] for q in data["questions"]}
+    return result
 
 @app.route('/redo_article', methods=['POST'])
 def redo_article():
