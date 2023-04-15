@@ -72,7 +72,7 @@
         }
         
         .title-container {
-            padding-top: 50px; /* Adjust the value to control the space above the title */
+            padding-top: 160px; /* Adjust the value to control the space above the title */
         }    
         
         
@@ -89,6 +89,22 @@
 
 
 <body>
+    <header class="header-global" id="home">
+        <nav id="navbar-main" aria-label="Primary navigation" class="navbar navbar-main navbar-expand-lg navbar-theme-primary headroom navbar-light">
+            <div class="container position-relative">
+                <a class="navbar-brand mr-lg-4" href="{{ url_for('index') }}">
+                    <img class="navbar-brand-dark" src="{{ url_for('static', filename='assets/img/dark.svg') }}" alt="Logo dark">
+                    <img class="navbar-brand-dark" src="{{ url_for('static', filename='assets/img/light.svg') }}" alt="Logo light">
+                </a>
+                <div class="d-flex align-items-center">
+                    <a href="{{ url_for('index') }}" class="btn btn-outline-soft d-none d-md-inline mr-md-3 animate-up-2">Back to Landing Page</a>
+                    <button class="navbar-toggler ml-2" type="button" data-toggle="collapse" data-target="#navbar_global" aria-controls="navbar_global" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                </div>
+            </div>
+        </nav>
+    </header>
     
     <main>
         
