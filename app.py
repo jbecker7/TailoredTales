@@ -9,7 +9,7 @@ app = Flask(__name__, static_url_path='/static')
 if __name__ == '__main__':
     app.run(debug=False)
 
-openai.api_key = ""
+openai.api_key = "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"
 
 TEMPERATURE = 0.5
 MAX_TOKENS = 500
@@ -22,7 +22,7 @@ USER_LANGUAGE=""
 USER_LEVEL=""
 USER_TOPIC=""
 USER_LENGTH=0
-PREVIOUS=""
+PREVIOUS=[]
 
 
 @app.route('/', methods=['GET', 'POST'])

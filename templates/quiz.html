@@ -179,18 +179,21 @@
             <div class="container">
                 <h2 class="mb-4">Quiz</h2>
                 <form id="quiz-form">
-                    {% for full_question, answer in quiz.items() %}
-                    {% set question_parts = full_question.split('\n') %}
-                    <p>{{ question_parts[0].strip() }}</p>
-                    {% for option in question_parts[1:-1] %}
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" name="{{ loop.index }}-{{ option[0] }}" id="{{ loop.index }}-{{ option[0] }}" data-correct-answer="{{ answer }}">
-                            <label class="form-check-label" for="{{ loop.index }}-{{ option[0] }}">
-                                {{ option.strip() }}
-                            </label>
-                        </div>
-                    {% endfor %}
+                    {% for question in quiz %}
+                    <div class="question">
+                        <p>{{ question.question }}</p>
+                        {% for option in question.options %}
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="{{ loop.index }}-{{ loop.index0 }}" id="{{ loop.index }}-{{ loop.index0 }}" data-correct-answer="{{ question.answer }}">
+                                <label class="form-check-label" for="{{ loop.index }}-{{ loop.index0 }}">
+                                    {{ option }}
+                                </label>
+                            </div>
+                        {% endfor %}
+                    </div>
                 {% endfor %}
+                <div id="quiz-data" style="display:none;">{{ quiz | tojson }}</div>
+
                     <button type="submit" class="btn btn-primary">Submit</button>
                 </form>
             </div>
@@ -266,31 +269,27 @@
 
             let totalQuestions = parseInt($("#total-questions").data("value"));
             let correctAnswers = 0;
+            let quizData = JSON.parse($("#quiz-data").text());
 
-            for (let i = 1; i <= totalQuestions; i++) {
-                let userAnswer;
-                let correctAnswer;
-
-                for (let option of "ABCD") {
-                    let inputSelector = `input[name="${i}-${option}"]`;
-                    let input = $(inputSelector);
-                    let isChecked = input.prop('checked');
-
-                    if (isChecked) {
-                        userAnswer = option;
-                    }
-                    if (input.data('correct-answer') === "true") {
-                        correctAnswer = option;
+            let questionIndex = 0;
+            $(".question").each(function() {
+                questionIndex++;
+                let correctAnswer = $(this).find("input:checked").data("correct-answer");
+                if (correctAnswer) {
+                    let selectedOption = $(this).find("input:checked").attr("name").split("-")[1];
+                    if (selectedOption === correctAnswer) {
+                        // The answer is correct
+                        $(this).find("label").css('color', 'green');
+                        correctAnswers++;
+                    } else {
+                        // The answer is incorrect
+                        $(this).find("label").css('color', 'red');
                     }
                 }
+            });
 
-                if (userAnswer === correctAnswer) {
-                    $(`input[name="${i}-${correctAnswer}"]`).parent().css('color', 'green');
-                    correctAnswers++;
-                } else {
-                    $(`input[name="${i}-${userAnswer}"]`).parent().css('color', 'red');
-                }
-            }
+            // Display the number of correct answers
+            alert(`You answered ${correctAnswers} out of ${totalQuestions} questions correctly.`);
         });
     });
 </script>
