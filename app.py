@@ -3,6 +3,7 @@ import translators as ts
 import os
 import openai
 from flask import jsonify
+import json
 
 app = Flask(__name__, static_url_path='/static')
 if __name__ == '__main__':
@@ -142,6 +143,44 @@ def redo(option):
     USER_LEVEL=new_level
     result=get_response(PREVIOUS, USER_LANGUAGE, new_level, USER_TOPIC, USER_LENGTH)
     return result
+
+def take_quiz():
+    prompt="""Generate a python dictionary containing a multiple choice quiz with at most 6 questions in the language of the following article and give the corresponding answer key. Make sure the quiz is in the language of the previous article. The multiple choice quiz should function like a reading comprehension quiz and should quiz the user on their comprehension of the article. Make sure that all questions can be answered solely based on the content from the previous article. Users should not be quizzed on things not mentioned in the previous article. 
+            Format the response in the format of a python dictionary where the key is a string containing the question along with the choices and the value is a string containing the answer. Format it like the following: 
+            quiz = {"1. Question \nA. optionA \nB. optionB\nC. optionC\nD. optionD\n”: “answer”,“2. Question \nA. optionA \nB. optionB\nC. optionC\nD. optionD\n”: “answer”,“3. Question \nA. optionA \nB. optionB\nC. optionC\nD. optionD\n”: “answer”,“4. Question \nA. optionA \nB. optionB\nC. optionC\nD. optionD\n”: “answer”,“5. Question \nA. optionA \nB. optionB\nC. optionC\nD. optionD\n”: “answer”,“6. Question \nA. optionA \nB. optionB\nC. optionC\nD. optionD\n”: “answer”,“7. Question \nA. optionA \nB. optionB\nC. optionC\nD. optionD\n”: “answer”,“8. Question \nA. optionA \nB. optionB\nC. optionC\nD. optionD\n”: “answer”,“9. Question \nA. optionA \nB. optionB\nC. optionC\nD. optionD\n”: “answer”,“10. Question \nA. optionA \nB. optionB\nC. optionC\nD. optionD\n”: “answer”}"""
+
+    messages = [
+        { "role": "system", "content": prompt },
+    ]
+    for question, answer in PREVIOUS[-MAX_CONTEXT_QUESTIONS:]:
+        messages.append({ "role": "assistant", "content": answer })
+ 
+    completion = openai.ChatCompletion.create(
+        model="gpt-3.5-turbo",
+        messages=messages,
+        temperature=TEMPERATURE,
+        max_tokens=MAX_TOKENS,
+        top_p=1,
+        frequency_penalty=FREQUENCY_PENALTY,
+        presence_penalty=PRESENCE_PENALTY,
+    )
+    str_dict=completion.choices[0].message.content
+
+    messages = [
+        { "role": "system", "content": f"convert this to json format {str_dict}" },
+    ]
+    completion = openai.ChatCompletion.create(
+        model="gpt-3.5-turbo",
+        messages=messages,
+        temperature=TEMPERATURE,
+        max_tokens=MAX_TOKENS,
+        top_p=1,
+        frequency_penalty=FREQUENCY_PENALTY,
+        presence_penalty=PRESENCE_PENALTY,
+    )
+    json_dict=completion.choices[0].message.content
+    dict = json.loads(json_dict)
+    return dict
 
 @app.route('/redo_article', methods=['POST'])
 def redo_article():
