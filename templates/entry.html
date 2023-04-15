@@ -170,11 +170,11 @@
             </section>
                 <div class="row justify-content-center">
                     <div class="col-12 col-md-8">
-                        <form action="{{ url_for('generate_article') }}" method="POST">
+                        <form action="/generate_article" method="POST">
                             <div class="form-group">
                                 <label for="languageSelect">Language</label>
                                 <select class="form-control" id="languageSelect" name="languageSelect" >
-                                    <option>English</option>
+                                    <option>Italian</option>
                                     <option>Spanish</option>
                                     <option>French</option>
                                     <option>German</option>
@@ -206,6 +206,10 @@
                                 <img src="{{ url_for('static', filename='./assets/img/dark.svg') }}" alt="icon">
                             </button>
                             </div>
+                            <div class="form-center" id="loading" style="display: none;">
+                                Loading...
+                            </div>
+                            
                         </form>
                     </div>
                 </div>
@@ -250,5 +254,37 @@
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<!-- Other HTML elements -->
+<script>
+    document.querySelector('form').addEventListener('submit', async function(event) {
+        event.preventDefault();
+        document.getElementById('loading').style.display = 'block';
+
+        const formData = new FormData(event.target);
+        const response = await fetch('/generate_article', {
+            method: 'POST',
+            body: formData
+        });
+
+        if (response.ok) {
+            const data = await response.json();
+            const generatedArticleContent = data.generated_article_content;
+            // Create a new hidden input to store the generated article content
+            const hiddenInput = document.createElement('input');
+            hiddenInput.type = 'hidden';
+            hiddenInput.name = 'generated_article_content';
+            hiddenInput.value = generatedArticleContent;
+            event.target.appendChild(hiddenInput);
+            event.target.action = '/result'; // Set the form action to the result route
+            event.target.submit(); // Submit the form with the generated article
+        } else {
+            // Handle error case
+            document.getElementById('loading').style.display = 'none';
+            alert('Error generating the article. Please try again.');
+        }
+    });
+</script>
+
+
 </body>
 </html>

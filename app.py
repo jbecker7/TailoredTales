@@ -2,12 +2,13 @@ from flask import Flask, request, render_template
 import translators as ts
 import os
 import openai
+from flask import jsonify
 
 app = Flask(__name__, static_url_path='/static')
 if __name__ == '__main__':
     app.run(debug=False)
 
-openai.api_key = ""
+openai.api_key = "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"
 
 TEMPERATURE = 0.5
 MAX_TOKENS = 500
@@ -131,13 +132,10 @@ def redo(option):
     result=get_response(PREVIOUS, USER_LANGUAGE, new_level, USER_TOPIC, USER_LENGTH)
     return result
 
-@app.route('/result', methods=['GET', 'POST'])
-
+@app.route('/result', methods=['POST'])
 def result():
-    if request.method == 'POST':
-        # Your POST handling logic here
-        pass
-    return render_template("result.html")
+    generated_article_content = request.form['generated_article_content']
+    return render_template('result.html', generated_article_content=generated_article_content)
 
 @app.route('/generate_article', methods=['POST'])
 def generate_article():
@@ -148,8 +146,8 @@ def generate_article():
 
     # Perform your processing with the data, e.g., call GPT model API
     # and generate the article based on the user inputs
-    generated_article_content = get_response([],language, difficulty, topic, length)
+    generated_article_content = get_response([], language, difficulty, topic, length)
     print(generated_article_content)
 
-    # Redirect to the result page and pass the generated article
-    return render_template('result.html', generated_article_content=generated_article_content)
+    # Return the generated article content as JSON
+    return jsonify({"generated_article_content": generated_article_content})
