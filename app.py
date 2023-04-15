@@ -16,6 +16,12 @@ PRESENCE_PENALTY = 0.6
 # limits how many questions we include in the prompt
 MAX_CONTEXT_QUESTIONS = 10
 
+USER_LANGUAGE=""
+USER_LEVEL=""
+USER_TOPIC=""
+USER_LENGTH=0
+PREVIOUS=""
+
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
@@ -40,6 +46,12 @@ def translator(text,language):
         code='zh'
     elif language=='Spanish':
         code='es'
+    elif language=="German": 
+        code='de'
+    elif language =="French":
+        code='fr'
+    elif language =="Italian":
+        code='it'
     result=ts.translate_text(text, translator='google',from_language=code, to_language='en')
     return result
 
@@ -52,16 +64,27 @@ def get_response(previous_questions_and_answers, language, level, topic, length)
     Returns:
         The response text
     """
+
+    global USER_LANGUAGE
+    global USER_LEVEL
+    global USER_TOPIC
+    global USER_LENGTH
+
+    # start by storing user input
+    USER_LANGUAGE=language
+    USER_LEVEL=level
+    USER_TOPIC=topic
+    USER_LENGTH=length
+
     dict={"HSK1/A1":1,"HSK2/A2":2, "HSK3/B1":3, "HSK4/B2":4, "HSK5/C1":5, "HSK6/C2":6}
     euro_dict={1:"A1", 2:"A2", 3:"B1", 4:"B2", 5:"C1", 6:"C2"}
     if language == "Chinese":
         input_level=f"HSK level {dict[level]}"
-    if language == "Spanish":
+    else:
         num=dict[level]
         input_level=f"{euro_dict[num]}"
     # build the messages
     instruction = f"Generate an interesting {language} news article on {topic} for a non native speaker with level {input_level} with length of {length} words. Do not give an intro. Do not simply give an encyclopedic description."
-
     messages = [
         { "role": "system", "content": instruction },
     ]
@@ -82,7 +105,31 @@ def get_response(previous_questions_and_answers, language, level, topic, length)
         frequency_penalty=FREQUENCY_PENALTY,
         presence_penalty=PRESENCE_PENALTY,
     )
+    
     return completion.choices[0].message.content
+    # return None 
+
+def get_key(val, dict):
+    for key, value in dict.items():
+        if val == value:
+            return key
+
+def redo(option): 
+    global USER_LEVEL
+
+    dict={"HSK1/A1":1,"HSK2/A2":2, "HSK3/B1":3, "HSK4/B2":4, "HSK5/C1":5, "HSK6/C2":6}
+    level_num=dict[USER_LEVEL]
+    # level_str=get_key(level_num,dict)
+    if option == "too easy": 
+        level_num+=1
+    elif option == "too hard": 
+        level_num-=1
+    else: 
+        return None 
+    new_level=get_key(level_num,dict)
+    USER_LEVEL=new_level
+    result=get_response(PREVIOUS, USER_LANGUAGE, new_level, USER_TOPIC, USER_LENGTH)
+    return result
 
 @app.route('/result', methods=['GET', 'POST'])
 
