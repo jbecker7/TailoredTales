@@ -66,26 +66,32 @@ def get_response(previous_questions_and_answers, language, level, topic, length)
         The response text
     """
 
-    global USER_LANGUAGE
-    global USER_LEVEL
-    global USER_TOPIC
-    global USER_LENGTH
+    if level==0: 
+        instruction = f"Generate a very easy and interesting news article in {language} on {topic} for a non native speaker with length of {length} words. Do not give an intro. Do not simply give an encyclopedic description. Someone who has only studied the language for a few months should be able to read this article"
+    elif level==7: 
+        instruction = f"Generate a difficult, sophisticated, and interesting news article in {language} on {topic} for a non native speaker with length of {length} words. Do not give an intro. Do not simply give an encyclopedic description."
+    else: 
+        global USER_LANGUAGE
+        global USER_LEVEL
+        global USER_TOPIC
+        global USER_LENGTH
 
-    # start by storing user input
-    USER_LANGUAGE=language
-    USER_LEVEL=level
-    USER_TOPIC=topic
-    USER_LENGTH=length
+        # start by storing user input
+        USER_LANGUAGE=language
+        USER_LEVEL=level
+        USER_TOPIC=topic
+        USER_LENGTH=length
 
-    dict={"HSK1/A1":1,"HSK2/A2":2, "HSK3/B1":3, "HSK4/B2":4, "HSK5/C1":5, "HSK6/C2":6}
-    euro_dict={1:"A1", 2:"A2", 3:"B1", 4:"B2", 5:"C1", 6:"C2"}
-    if language == "Chinese":
-        input_level=f"HSK level {dict[level]}"
-    else:
-        num=dict[level]
-        input_level=f"{euro_dict[num]}"
-    # build the messages
-    instruction = f"Generate an interesting {language} news article on {topic} for a non native speaker with level {input_level} with length of {length} words. Do not give an intro. Do not simply give an encyclopedic description."
+        dict={"HSK1/A1":1,"HSK2/A2":2, "HSK3/B1":3, "HSK4/B2":4, "HSK5/C1":5, "HSK6/C2":6}
+        euro_dict={1:"A1", 2:"A2", 3:"B1", 4:"B2", 5:"C1", 6:"C2"}
+        if language == "Simplified Chinese":
+            input_level=f"HSK level {dict[level]}"
+        else:
+            num=dict[level]
+            input_level=f"{euro_dict[num]}"
+        # build the messages
+        instruction = f"Generate an interesting news article in {language} on {topic} for a non native speaker with level {input_level} with length of {length} words. Do not give an intro. Do not simply give an encyclopedic description."
+        print(instruction)
     messages = [
         { "role": "system", "content": instruction },
     ]
@@ -108,7 +114,6 @@ def get_response(previous_questions_and_answers, language, level, topic, length)
     )
     
     return completion.choices[0].message.content
-    # return None 
 
 def get_key(val, dict):
     for key, value in dict.items():
