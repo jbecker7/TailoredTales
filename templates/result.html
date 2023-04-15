@@ -121,8 +121,9 @@
                 </div>
                 <div class="row justify-content-center">
                     <div class="col-12 col-md-8">
-                        <textarea name="" id="" cols="30" rows="10"></textarea>
+                        Example Text
                     </div>
+                    <div id="translation-popup" style="display: none; position: absolute; background-color: white; border: 1px solid black; padding: 10px;"></div>
                 </div>
             </div>
         </section>
@@ -162,6 +163,45 @@
 </footer>
 
 <!-- Scripts -->
+
+<script>
+    function getSelectedText() {
+        let text = "";
+        if (window.getSelection) {
+            text = window.getSelection().toString();
+        } else if (document.selection && document.selection.type !== "Control") {
+            text = document.selection.createRange().text;
+        }
+        return text;
+    }
+
+    async function translateSelectedText() {
+        const text = getSelectedText();
+        if (text) {
+            const response = await fetch('/translate', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ text: text, language: 'Chinese' }) // change the language as needed
+            });
+            const translatedText = await response.json();
+            displayTranslationPopup(translatedText);
+        }
+    }
+
+    function displayTranslationPopup(translatedText) {
+        const popup = document.getElementById('translation-popup');
+        popup.innerHTML = translatedText;
+        popup.style.display = 'block';
+
+        // Hide the popup after 3 seconds
+        setTimeout(() => {
+            popup.style.display = 'none';
+        }, 3000);
+    }
+
+    document.addEventListener('mouseup', translateSelectedText);
+</script>
+
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
