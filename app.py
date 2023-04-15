@@ -9,7 +9,7 @@ app = Flask(__name__, static_url_path='/static')
 if __name__ == '__main__':
     app.run(debug=False)
 
-openai.api_key = "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"
+openai.api_key = ""
 
 TEMPERATURE = 0.5
 MAX_TOKENS = 500
@@ -172,6 +172,7 @@ def take_quiz():
     messages = [
         { "role": "system", "content": f"convert this to json format {str_dict}" },
     ]
+    print(messages)
     completion = openai.ChatCompletion.create(
         model="gpt-3.5-turbo",
         messages=messages,
@@ -182,7 +183,9 @@ def take_quiz():
         presence_penalty=PRESENCE_PENALTY,
     )
     json_dict=completion.choices[0].message.content
+    print(json_dict)
     dict = json.loads(json_dict)
+    print(dict)
     return dict
 
 @app.route('/redo_article', methods=['POST'])

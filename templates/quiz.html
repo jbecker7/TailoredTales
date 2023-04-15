@@ -182,7 +182,7 @@
                     {% for full_question, answer in quiz.items() %}
                     {% set question_parts = full_question.split('\n') %}
                     <p>{{ question_parts[0].strip() }}</p>
-                    {% for option in question_parts[1:] %}
+                    {% for option in question_parts[1:-1] %}
                         <div class="form-check">
                             <input class="form-check-input" type="checkbox" name="{{ loop.index }}-{{ option[0] }}" id="{{ loop.index }}-{{ option[0] }}" data-correct-answer="{{ answer }}">
                             <label class="form-check-label" for="{{ loop.index }}-{{ option[0] }}">
