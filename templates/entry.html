@@ -170,10 +170,10 @@
             </section>
                 <div class="row justify-content-center">
                     <div class="col-12 col-md-8">
-                        <form>
+                        <form action="{{ url_for('generate_article') }}" method="POST">
                             <div class="form-group">
                                 <label for="languageSelect">Language</label>
-                                <select class="form-control" id="languageSelect">
+                                <select class="form-control" id="languageSelect" name="languageSelect" >
                                     <option>English</option>
                                     <option>Spanish</option>
                                     <option>French</option>
@@ -184,22 +184,22 @@
                             </div>
                             <div class="form-group">
                                 <label for="difficultySelect">Difficulty</label>
-                                <select class="form-control" id="difficultySelect">
-                                    <option>HSK 1/A1</option>
-                                    <option>HSK 2/A2</option>
-                                    <option>HSK 3/A3</option>
-                                    <option>HSK 4/A4</option>
-                                    <option>HSK 5/A5</option>
-                                    <option>HSK 6/A6</option>
+                                <select class="form-control" id="difficultySelect" name="difficultySelect">
+                                    <option>HSK1/A1</option>
+                                    <option>HSK2/A2</option>
+                                    <option>HSK3/B1</option>
+                                    <option>HSK4/B2</option>
+                                    <option>HSK5/C1</option>
+                                    <option>HSK6/C2</option>
                                 </select>
                             </div>
                             <div class="form-group">
                                 <label for="topicInput">Topic</label>
-                                <input type="text" class="form-control" id="topicInput" placeholder="Enter topic">
+                                <input type="text" class="form-control" id="topicInput" placeholder="Enter topic" name="topicInput">
                             </div>
                             <div class="form-group">
                                 <label for="lengthInput">Length</label>
-                                <input type="number" class="form-control" id="lengthInput" placeholder="Enter length">
+                                <input type="number" class="form-control" id="lengthInput" placeholder="Enter length" name="lengthInput">
                             </div>
                             <div class="form-center">
                             <button type="submit" class="btn btn-primary button-with-icon">Generate Article

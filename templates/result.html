@@ -167,13 +167,24 @@
                     </div>
                 </div>
             </section>
-                <div class="row justify-content-center">
-                    <div class="col-12 col-md-8">
-                        Example Text
+            <section class="section section-header text-dark pb-md-8">
+                <div class="container">
+                    <div class="row justify-content-center">
+                        <div class="col-12 col-md-10 text-center mb-5 mb-md-7">
+                            <h1 class="display-2 font-weight-bolder mb-4">Generated Article</h1>
+                            <p class="lead mb-4 mb-lg-5">Here is the article tailored to your selected preferences. Enjoy reading!</p>
+                        </div>
                     </div>
-                    <div id="translation-popup" style="display: none; position: absolute; background-color: white; border: 1px solid black; padding: 10px;"></div>
+                    <div class="row justify-content-center">
+                        <div class="col-12 col-md-10">
+                            <!-- The article content will be displayed here -->
+                            <div class="generated-article">
+                                {{ generated_article_content | safe }}
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </div>
+            </section>
         </section>
     </main>
 

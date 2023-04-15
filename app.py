@@ -91,3 +91,18 @@ def result():
         # Your POST handling logic here
         pass
     return render_template("result.html")
+
+@app.route('/generate_article', methods=['POST'])
+def generate_article():
+    language = request.form['languageSelect']
+    difficulty = request.form['difficultySelect']
+    topic = request.form['topicInput']
+    length = request.form['lengthInput']
+
+    # Perform your processing with the data, e.g., call GPT model API
+    # and generate the article based on the user inputs
+    generated_article_content = get_response([],language, difficulty, topic, length)
+    print(generated_article_content)
+
+    # Redirect to the result page and pass the generated article
+    return render_template('result.html', generated_article_content=generated_article_content)
