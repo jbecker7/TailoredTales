@@ -179,14 +179,14 @@
             <div class="container">
                 <h2 class="mb-4">Quiz</h2>
                 <form id="quiz-form">
-                    {% for question, answer in quiz.items() %}
-                    <!-- Display the question -->
-                    <p>{{ question }}</p>
-                    {% for option in "ABCD" %}
+                    {% for full_question, answer in quiz.items() %}
+                    {% set question_parts = full_question.split('\n') %}
+                    <p>{{ question_parts[0].strip() }}</p>
+                    {% for option in question_parts[1:] %}
                         <div class="form-check">
-                            <input class="form-check-input" type="checkbox" name="{{ loop.index }}-{{ option }}" id="{{ loop.index }}-{{ option }}" data-correct-answer="{{ answer }}">
-                            <label class="form-check-label" for="{{ loop.index0 }}-{{ option }}">
-                                {{ option }}. {{ option }}
+                            <input class="form-check-input" type="checkbox" name="{{ loop.index }}-{{ option[0] }}" id="{{ loop.index }}-{{ option[0] }}" data-correct-answer="{{ answer }}">
+                            <label class="form-check-label" for="{{ loop.index }}-{{ option[0] }}">
+                                {{ option.strip() }}
                             </label>
                         </div>
                     {% endfor %}

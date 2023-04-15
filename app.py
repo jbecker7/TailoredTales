@@ -9,7 +9,7 @@ app = Flask(__name__, static_url_path='/static')
 if __name__ == '__main__':
     app.run(debug=False)
 
-openai.api_key = ""
+openai.api_key = "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"
 
 TEMPERATURE = 0.5
 MAX_TOKENS = 500
@@ -209,14 +209,7 @@ def generate_article():
     # Return the generated article content as JSON
     return jsonify({"generated_article_content": generated_article_content})
 
-def get_quiz_data():
-    quiz = {
-        "1. Question": ["A. optionA", "B. optionB", "C. optionC", "D. optionD"],
-        # Add more questions here
-    }
-    return quiz
-
 @app.route('/quiz')
 def quiz():
-    quiz_data = get_quiz_data()
+    quiz_data = take_quiz()
     return render_template('quiz.html', quiz=quiz_data)
