@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customized Language Learning</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+        }
+        .display-4 {
+            color: #5a5a5a;
+        }
+    
+        .lead {
+            color: #7a7a7a;
+        }
+    
+        .section {
+            padding: 60px 0;
+        }
+    
+        .icon {
+            font-size: 48px;
+            color: #3498db;
+            width: 30px; /* Adjust the width */
+            height: 30px; /* Adjust the height */
+        }
+    
+        .form-group label {
+            color: #5a5a5a;
+            font-weight: bold;
+        }
+    
+        .btn-primary {
+            background-color: #3498db;
+            border-color: #3498db;
+        }
+    
+        .btn-primary:hover,
+        .btn-primary:focus {
+            background-color: #1c6ba8;
+            border-color: #1c6ba8;
+        }
+
+        .form-center {
+            display: flex;
+            justify-content: center;
+        }
+        
+        .button-with-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .button-with-icon img {
+            margin-left: 10px;
+            width: 30px; /* Adjust the width */
+            height: 30px; /* Adjust the height */
+        }
+
+        .spacer {
+            height: 100px; /* Adjust the height to control the amount of space */
+        }        
+
+        .custom-image-size {
+            width: 600px; /* Adjust the width */
+            height: 400px; /* Adjust the height */
+        }
+        
+        .title-container {
+            padding-top: 50px; /* Adjust the value to control the space above the title */
+        }    
+        
+        
+    </style>
+
+    <!-- Fontawesome -->
+    <link type="text/css" href="{{ url_for('static', filename='vendor/@fortawesome/fontawesome-free/css/all.min.css') }}" rel="stylesheet">
+
+    <!-- Swipe CSS -->
+    <link type="text/css" href="{{ url_for('static', filename='css/swipe.css') }}" rel="stylesheet">
+
+</head>
+
+
+
+<body>
+    
+    <main>
+        
+        <section class="section section-lg py-0">
+            <div class="title-container">
+                <div class="row justify-content-center">
+                    <div class="col-12 col-md-10 text-center mb-5 mb-md-7">
+                        <h1 class="display-2 font-weight-bolder mb-4">
+                            TailoredTales
+                        </h1>
+                        <p class="lead mb-4 mb-lg-5">Discover TailoredTales: personalized reading experiences for every language enthusiast. Dive into captivating content, expand your skills, and enjoy seamless accessibility for all abilities. Welcome to your world of tailored stories!.</p>
+                        <img class="d-none d-md-inline-block custom-image-size" src="{{ url_for('static', filename='assets/img/illustrations/scene-2.svg') }}">
+                    </div>
+                </div>
+                <div class="row justify-content-center">
+                    <div class="col-12 col-md-8">
+                        <form>
+                            <div class="form-group">
+                                <label for="languageSelect">Language</label>
+                                <select class="form-control" id="languageSelect">
+                                    <option>English</option>
+                                    <option>Spanish</option>
+                                    <option>French</option>
+                                    <option>German</option>
+                                    <option>Chinese</option>
+                                    <!-- Add more languages here -->
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="difficultySelect">Difficulty</label>
+                                <select class="form-control" id="difficultySelect">
+                                    <option>HSK 1/A1</option>
+                                    <option>HSK 2/A2</option>
+                                    <option>HSK 3/A3</option>
+                                    <option>HSK 4/A4</option>
+                                    <option>HSK 5/A5</option>
+                                    <option>HSK 6/A6</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="topicInput">Topic</label>
+                                <input type="text" class="form-control" id="topicInput" placeholder="Enter topic">
+                            </div>
+                            <div class="form-group">
+                                <label for="lengthInput">Length</label>
+                                <input type="number" class="form-control" id="lengthInput" placeholder="Enter length">
+                            </div>
+                            <div class="form-center">
+                            <button type="submit" class="btn btn-primary button-with-icon">Generate Article
+                                <img src="{{ url_for('static', filename='./assets/img/dark.svg') }}" alt="icon">
+                            </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+<!-- Spacer -->
+<div class="spacer"></div>
+
+<!-- Footer -->
+<footer class="footer bg-light py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 h-100 text-center text-lg-left my-auto">
+                <p class="text-muted small mb-4 mb-lg-0">&copy; Customized Language Learning 2023. All Rights Reserved.</p>
+            </div>
+            <div class="col-lg-6 h-100 text-center text-lg-right my-auto">
+                <ul class="list-inline mb-0">
+                    <li class="list-inline-item mr-3">
+                        <a href="#" class="text-muted">
+                            <i class="fab fa-facebook fa-2x"></i>
+                        </a>
+                    </li>
+                    <li class="list-inline-item mr-3">
+                        <a href="#" class="text-muted">
+                            <i class="fab fa-twitter fa-2x"></i>
+                        </a>
+                    </li>
+                    <li class="list-inline-item">
+                        <a href="#" class="text-muted">
+                            <i class="fab fa-instagram fa-2x"></i>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- Scripts -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
