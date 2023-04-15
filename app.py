@@ -7,7 +7,7 @@ app = Flask(__name__)
 if __name__ == '__main__':
     app.run(debug=False)
 
-openai.api_key = "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"
+openai.api_key = ""
 
 TEMPERATURE = 0.5
 MAX_TOKENS = 500
@@ -41,10 +41,15 @@ def get_response(previous_questions_and_answers, language, level, topic, length)
     Returns:
         The response text
     """
+    dict={"HSK1/A1":1,"HSK2/A2":2, "HSK3/B1":3, "HSK4/B2":4, "HSK5/C1":5, "HSK6/C2":6}
+    euro_dict={1:"A1", 2:"A2", 3:"B1", 4:"B2", 5:"C1", 6:"C2"}
     if language == "Chinese":
-        level=f"HSK level {level}"
+        input_level=f"HSK level {dict[level]}"
+    if language == "Spanish":
+        num=dict[level]
+        input_level=f"{euro_dict[num]}"
     # build the messages
-    instruction = f"Generate an interesting {language} news article on {topic} for a non native speaker with level {level} with length of {length} words. Do not give an intro. Do not simply give an encyclopedic description."
+    instruction = f"Generate an interesting {language} news article on {topic} for a non native speaker with level {input_level} with length of {length} words. Do not give an intro. Do not simply give an encyclopedic description."
 
     messages = [
         { "role": "system", "content": instruction },
