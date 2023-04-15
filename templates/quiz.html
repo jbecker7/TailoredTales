@@ -243,12 +243,13 @@
             e.preventDefault();
 
             let correctAnswers = 0;
-            let quiz = JSON.parse('{{ quiz_json|safe }}');
 
-            for (const [fullQuestion, correctAnswer] of Object.entries(quiz)) {
+            for (const [fullQuestion, correctAnswer] of quiz.items()) {
                 let questionIndex = $('#quiz-form p:contains("'+fullQuestion.split('\n')[0]+'")').index() + 1;
                 let isChecked = $(`input[name="${questionIndex}-${correctAnswer}"]`).prop('checked');
                 let questionOptions = $('input[name^="'+questionIndex+'-"]');
+
+                print(fullQuestion, correctAnswer)
                 
                 // Reset colors
                 questionOptions.each(function() {
