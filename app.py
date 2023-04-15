@@ -22,7 +22,7 @@ USER_LANGUAGE=""
 USER_LEVEL=""
 USER_TOPIC=""
 USER_LENGTH=0
-PREVIOUS=""
+PREVIOUS=[]
 
 
 @app.route('/', methods=['GET', 'POST'])
