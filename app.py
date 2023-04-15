@@ -208,3 +208,15 @@ def generate_article():
 
     # Return the generated article content as JSON
     return jsonify({"generated_article_content": generated_article_content})
+
+def get_quiz_data():
+    quiz = {
+        "1. Question": ["A. optionA", "B. optionB", "C. optionC", "D. optionD"],
+        # Add more questions here
+    }
+    return quiz
+
+@app.route('/quiz')
+def quiz():
+    quiz_data = get_quiz_data()
+    return render_template('quiz.html', quiz=quiz_data)
