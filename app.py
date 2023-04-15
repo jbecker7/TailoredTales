@@ -3,7 +3,7 @@ import translators as ts
 import os
 import openai
 
-app = Flask(__name__)
+app = Flask(__name__, static_url_path='/static')
 if __name__ == '__main__':
     app.run(debug=False)
 
@@ -23,6 +23,17 @@ def index():
         # Your POST handling logic here
         pass
     return render_template("index.html")
+
+
+
+@app.route('/entry', methods=['GET', 'POST'])
+
+def entry():
+    if request.method == 'POST':
+        # Your POST handling logic here
+        pass
+    return render_template("entry.html")
+
 
 def translator(text,language):
     if language=="Chinese": 
