@@ -11,7 +11,7 @@
 
 💡 We understand the importance of reading in language learning and the role it plays in helping students improve their vocabulary, grammar, and comprehension skills. That's why we have created TailoredTales, to provide learners with an endless supply of engaging and relevant reading materials, no matter their level or interests.
 
-💻 Our platform is designed to be user-friendly and accessible. All you need to do is sign up, input your language level and interests, and our AI will generate a selection of reading materials just for you. You can also choose to have the texts read to you, which will help you improve your listening comprehension and pronunciation skills.
+💻 Our platform is designed to be user-friendly and accessible. All you need to do is input your language level and interests, and our AI will generate a selection of reading materials just for you. You can also choose to have the texts read to you, which will help you improve your listening comprehension and pronunciation skills.
 
 💰 With TailoredTales, language learners no longer have to worry about not having access to high-quality reading materials or about spending money on books and other resources. Our platform is **free** to use and provides learners with an endless supply of reading materials, so they can focus on what's most important: learning and improving their language skills.
 
