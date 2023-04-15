@@ -113,6 +113,8 @@ def get_response(previous_questions_and_answers, language, level, topic, length)
         frequency_penalty=FREQUENCY_PENALTY,
         presence_penalty=PRESENCE_PENALTY,
     )
+
+    PREVIOUS.append((instruction, completion.choices[0].message.content))
     
     return completion.choices[0].message.content
 
