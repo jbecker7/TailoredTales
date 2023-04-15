@@ -13,7 +13,7 @@
 
 💻 Our platform is designed to be user-friendly and accessible. All you need to do is sign up, input your language level and interests, and our AI will generate a selection of reading materials just for you. You can also choose to have the texts read to you, which will help you improve your listening comprehension and pronunciation skills.
 
-💰 With TailoredTales, language learners no longer have to worry about not having access to high-quality reading materials or about spending money on books and other resources. Our platform is free to use and provides learners with an endless supply of reading materials, so they can focus on what's most important: learning and improving their language skills.
+💰 With TailoredTales, language learners no longer have to worry about not having access to high-quality reading materials or about spending money on books and other resources. Our platform is **free** to use and provides learners with an endless supply of reading materials, so they can focus on what's most important: learning and improving their language skills.
 
 🚀 So if you're a language learner looking for a more accessible and engaging way to engage in extensive reading, look no further than TailoredTales. Sign up today and start your journey to becoming a more confident and fluent language learner! 📚
 
