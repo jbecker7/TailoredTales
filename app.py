@@ -132,25 +132,25 @@ def redo(option):
     if option == "too easy": 
         level_num+=1
         if level_num==7: 
-            result=get_response(PREVIOUS, USER_LANGUAGE, level_num, USER_TOPIC, USER_LENGTH)
+            result=get_response([], USER_LANGUAGE, level_num, USER_TOPIC, USER_LENGTH)
             return result
     elif option == "too hard": 
         level_num-=1
         if level_num==0: 
-            result=get_response(PREVIOUS, USER_LANGUAGE, level_num, USER_TOPIC, USER_LENGTH)
+            result=get_response([], USER_LANGUAGE, level_num, USER_TOPIC, USER_LENGTH)
             return result
     else: 
         return None 
     new_level=get_key(level_num,dict)
     USER_LEVEL=new_level
-    result=get_response(PREVIOUS, USER_LANGUAGE, new_level, USER_TOPIC, USER_LENGTH)
+    result=get_response([], USER_LANGUAGE, new_level, USER_TOPIC, USER_LENGTH)
     return result
 
 def take_quiz():
-    prompt="""Generate a python dictionary containing a multiple choice quiz with at most 6 questions in """+ USER_LANGUAGE + """ and give the corresponding answer key. The multiple choice quiz should function like a reading comprehension quiz on the previous article and should quiz the user on their comprehension of the article. Make sure that all questions can be answered solely based on the content from the previous article. Users should not be quizzed on things not mentioned in the previous article. 
-            Format the response in the format of a python dictionary where the key is a string containing the question along with the choices and the value is a string containing the answer. Format it like the following: 
-            quiz = {"1. Question \nA. optionA \nB. optionB\nC. optionC\nD. optionD\n”: “answer”,“2. Question \nA. optionA \nB. optionB\nC. optionC\nD. optionD\n”: “answer”,“3. Question \nA. optionA \nB. optionB\nC. optionC\nD. optionD\n”: “answer”,“4. Question \nA. optionA \nB. optionB\nC. optionC\nD. optionD\n”: “answer”,“5. Question \nA. optionA \nB. optionB\nC. optionC\nD. optionD\n”: “answer”,“6. Question \nA. optionA \nB. optionB\nC. optionC\nD. optionD\n”: “answer”,“7. Question \nA. optionA \nB. optionB\nC. optionC\nD. optionD\n”: “answer”,“8. Question \nA. optionA \nB. optionB\nC. optionC\nD. optionD\n”: “answer”,“9. Question \nA. optionA \nB. optionB\nC. optionC\nD. optionD\n”: “answer”,“10. Question \nA. optionA \nB. optionB\nC. optionC\nD. optionD\n”: “answer”}
-            only return a single dictionary."""
+    prompt="""Generate a multiple choice quiz with at most 6 questions in """+ USER_LANGUAGE + """ and give the answer key. 
+            The multiple choice quiz should function like a reading comprehension quiz on the previous article and should quiz the user on their comprehension of the article. 
+            Make sure that all questions can be answered solely based on the content from the previous article. Users should not be quizzed on things not mentioned in the previous article. 
+           ."""
 
     messages = [
         { "role": "system", "content": prompt },
@@ -167,8 +167,7 @@ def take_quiz():
         frequency_penalty=FREQUENCY_PENALTY,
         presence_penalty=PRESENCE_PENALTY,
     )
-    str_dict=completion.choices[0].message.content
-
+    str=completion.choices[0].message.content
     messages = [
         { "role": "system", "content": f"convert this to json format {str}" },
     ]
