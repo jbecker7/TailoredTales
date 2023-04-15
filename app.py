@@ -9,10 +9,10 @@ app = Flask(__name__, static_url_path='/static')
 if __name__ == '__main__':
     app.run(debug=False)
 
-openai.api_key = ""
+openai.api_key = "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"
 
 TEMPERATURE = 0.5
-MAX_TOKENS = 500
+MAX_TOKENS = 800
 FREQUENCY_PENALTY = 0
 PRESENCE_PENALTY = 0.6
 # limits how many questions we include in the prompt
@@ -181,6 +181,7 @@ def take_quiz():
         presence_penalty=PRESENCE_PENALTY,
     )
     json_dict=completion.choices[0].message.content
+    print(json_dict)
     data=json.loads(json_dict)
     result = {q["question"] + "\n" + "\n".join(q["options"]): q["answer"] for q in data["questions"]}
     return result
@@ -214,4 +215,5 @@ def generate_article():
 @app.route('/quiz')
 def quiz():
     quiz_data = take_quiz()
-    return render_template('quiz.html', quiz=quiz_data)
+    quiz_json = json.dumps(quiz_data, ensure_ascii=False)
+    return render_template('quiz.html', quiz=quiz_data, quiz_json=quiz_json)

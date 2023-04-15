@@ -180,17 +180,17 @@
                 <h2 class="mb-4">Quiz</h2>
                 <form id="quiz-form">
                     {% for full_question, answer in quiz.items() %}
-                    {% set question_parts = full_question.split('\n') %}
-                    <p>{{ question_parts[0].strip() }}</p>
-                    {% for option in question_parts[1:] %}
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" name="{{ loop.index }}-{{ option[1] }}" id="{{ loop.index }}-{{ option[0] }}" data-correct-answer="{{ answer }}">
-                            <label class="form-check-label" for="{{ loop.index }}-{{ option[1] }}">
-                                {{ option.strip() }}
-                            </label>
-                        </div>
+                        {% set question_parts = full_question.split('\n') %}
+                        <p>{{ question_parts[0].strip() }}</p>
+                        {% for option in question_parts[1:] %}
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="{{ loop.index }}-{{ option[1] }}" id="{{ loop.index }}-{{ option[0] }}" data-correct-answer="{{ answer }}">
+                                <label class="form-check-label" for="{{ loop.index }}-{{ option[1] }}">
+                                    {{ option.strip() }}
+                                </label>
+                            </div>
+                        {% endfor %}
                     {% endfor %}
-                {% endfor %}
                     <button type="submit" class="btn btn-primary">Submit</button>
                 </form>
             </div>
@@ -238,71 +238,45 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
 <script>
-    document.getElementById('quiz-form').addEventListener('submit', function(event) {
-        event.preventDefault();
-
-        const correctAnswers = {
-            "1": "A",
-            "2": "C",
-            "3": "B",
-            "4": "C",
-            "5": "D",
-            "6": "A",
-            "7": "C",
-            "8": "D",
-            "9": "B",
-            "10": "A",
-            // Add more correct answers here
-        };
-
-        for (const [questionNumber, correctAnswer] of Object.entries(correctAnswers)) {
-            const userAnswer = document.querySelector(`input[name="${questionNumber}-${correctAnswer}"]`);
-
-            if (userAnswer.checked) {
-                userAnswer.parentElement.classList.add('text-success');
-            } else {
-                userAnswer.parentElement.classList.add('text-danger');
-            }
-        }
-    });
-</script>
-
-
-<script>
     $(document).ready(function() {
         $('#quiz-form').submit(function(e) {
             e.preventDefault();
 
-            let totalQuestions = parseInt($("#total-questions").data("value"));
             let correctAnswers = 0;
+            let quiz = JSON.parse('{{ quiz_json|safe }}');
 
-            for (let i = 1; i <= totalQuestions; i++) {
-                let userAnswer;
-                let correctAnswer;
+            for (const [fullQuestion, correctAnswer] of Object.entries(quiz)) {
+                let questionIndex = $('#quiz-form p:contains("'+fullQuestion.split('\n')[0]+'")').index() + 1;
+                let isChecked = $(`input[name="${questionIndex}-${correctAnswer}"]`).prop('checked');
+                let questionOptions = $('input[name^="'+questionIndex+'-"]');
+                
+                // Reset colors
+                questionOptions.each(function() {
+                    $(`label[for="${this.id}"]`).css('color', '');
+                });
 
-                for (let option of "ABCD") {
-                    let inputSelector = `input[name="${i}-${option}"]`;
-                    let input = $(inputSelector);
-                    let isChecked = input.prop('checked');
-
-                    if (isChecked) {
-                        userAnswer = option;
-                    }
-                    if (input.data('correct-answer') === "true") {
-                        correctAnswer = option;
-                    }
-                }
-
-                if (userAnswer === correctAnswer) {
-                    $(`input[name="${i}-${correctAnswer}"]`).parent().css('color', 'green');
+                if (isChecked) {
+                    // The answer is correct
+                    $(`label[for="${questionIndex}-${correctAnswer}"]`).css('color', 'green');
                     correctAnswers++;
                 } else {
-                    $(`input[name="${i}-${userAnswer}"]`).parent().css('color', 'red');
+                    // Incorrectly selected options
+                    questionOptions.each(function() {
+                        if ($(this).prop('checked')) {
+                            $(`label[for="${this.id}"]`).css('color', 'red');
+                        }
+                    });
+
+                    // Correct option
+                    $(`label[for="${questionIndex}-${correctAnswer}"]`).css('color', 'green');
                 }
             }
+
+            alert(`You answered ${correctAnswers} questions correctly.`);
         });
     });
 </script>
+
 
 </body>
 </html>
