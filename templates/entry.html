@@ -1,9 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <!-- Primary Meta Tags -->
+    <title>TailoredTales</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="title" content="TailoredTales">
+    <meta name="author" content="Themesberg">
+    <meta name="description" content="Tailored Tales">
+    <meta name="keywords" content="bootstrap, bootstrap 5, bootstrap 5 one page, bootstrap 5 mobile application, one page template, bootstrap 5 one page template, themesberg, themesberg one page, one page template bootstrap 5" />
+    <link rel="canonical" href="{{ url_for('index') }}">
+    
+    <!-- Favicon -->
+    <link rel="apple-touch-icon" sizes="120x120" href="{{ url_for('static', filename='img/favicon/apple-touch-icon.png') }}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ url_for('static', filename='img/favicon/favicon-32x32.png') }}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ url_for('static', filename='img/favicon/favicon-16x16.png') }}">
+    <link rel="manifest" href="{{ url_for('static', filename='img/favicon/site.webmanifest') }}">
+    <link rel="mask-icon" href="{{ url_for('static', filename='img/favicon/safari-pinned-tab.svg') }}" color="#ffffff">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="theme-color" content="#ffffff">
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Customized Language Learning</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
     <style>
@@ -90,14 +108,45 @@
 
 <body>
     <header class="header-global" id="home">
-        <nav id="navbar-main" aria-label="Primary navigation" class="navbar navbar-main navbar-expand-lg navbar-theme-primary headroom navbar-light">
+        <nav id="navbar-main" aria-label="Primary navigation" class="navbar navbar-main navbar-expand-lg navbar-theme-primary headroom navbar-light navbar-theme-secondary">
             <div class="container position-relative">
                 <a class="navbar-brand mr-lg-4" href="{{ url_for('index') }}">
-                    <img class="navbar-brand-dark" src="{{ url_for('static', filename='assets/img/dark.svg') }}" alt="Logo dark">
-                    <img class="navbar-brand-dark" src="{{ url_for('static', filename='assets/img/light.svg') }}" alt="Logo light">
+                    <!-- <img class="navbar-brand-dark" src="{{ url_for('static', filename='assets/img/dark.svg') }}" alt="Logo dark">
+                    <img class="navbar-brand-dark" src="{{ url_for('static', filename='assets/img/light.svg') }}" alt="Logo light"> -->
                 </a>
+                <div class="navbar-collapse collapse mr-auto" id="navbar_global">
+                    <div class="navbar-collapse-header"></div>
+                        <div class="row">
+                            <div class="col-6 collapse-brand">
+                                <a href="{{ url_for('index') }}">
+                                    <img src="{{ url_for('static', filename='assets/img/logo.png') }}" alt="Logo" style="width: 30%; margin-left: 5px;">
+    
+                            </div>
+                            <div class="col-6 collapse-close">
+                                <a href="#navbar_global" class="fas fa-times" data-toggle="collapse" data-target="#navbar_global" aria-controls="navbar_global" aria-expanded="false" title="close" aria-label="Toggle navigation"></a>
+                            </div>
+                        </div>
+                    </div>
+                    <ul class="navbar-nav navbar-nav-hover align-items-lg-center">
+                        <li class="nav-item">
+                            <a href="{{ url_for('index') }}#about" class="nav-link">
+                                How It Works
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ url_for('index') }}#video" class="nav-link">
+                                Why It Matters
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="https://github.com/jbecker7/TailoredTales" class="nav-link">
+                                GitHub
+                            </a>
+                        </li>
+                    </ul>
+                </div>
                 <div class="d-flex align-items-center">
-                    <a href="{{ url_for('index') }}" class="btn btn-outline-soft d-none d-md-inline mr-md-3 animate-up-2">Back to Landing Page</a>
+                    <a href="{{ url_for('index') }}" target="_self" class="btn btn-outline-soft d-none d-md-inline mr-md-3 animate-up-2">Back to Landing Page</a>
                     <button class="navbar-toggler ml-2" type="button" data-toggle="collapse" data-target="#navbar_global" aria-controls="navbar_global" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button>
@@ -109,16 +158,19 @@
     <main>
         
         <section class="section section-lg py-0">
-            <div class="title-container">
-                <div class="row justify-content-center">
-                    <div class="col-12 col-md-10 text-center mb-5 mb-md-7">
-                        <h1 class="display-2 font-weight-bolder mb-4">
-                            TailoredTales
-                        </h1>
-                        <p class="lead mb-4 mb-lg-5">Discover TailoredTales: personalized reading experiences for every language enthusiast. Dive into captivating content, expand your skills, and enjoy seamless accessibility for all abilities. Welcome to your world of tailored stories!.</p>
-                        <img class="d-none d-md-inline-block custom-image-size" src="{{ url_for('static', filename='assets/img/illustrations/scene-2.svg') }}">
+            <section class="section section-header text-dark">
+                <div class="container">
+                    <div class="row justify-content-center">
+                        <div class="col-12 col-md-10 text-center mb-5 mb-md-7">
+                            <h1 class="display-2 font-weight-bolder mb-4">
+                                TailoredTales
+                            </h1>
+                            <p class="lead mb-4 mb-lg-5">Discover TailoredTales: personalized reading experiences for every language enthusiast. Dive into captivating content, expand your skills, and enjoy seamless accessibility for all abilities. Welcome to your world of tailored stories!.</p>
+                            <img class="d-none d-md-inline-block" src="{{ url_for('static', filename='assets/img/illustrations/scene.svg') }}" alt="Mobile App Mockup">
+                        </div>
                     </div>
                 </div>
+            </section>
                 <div class="row justify-content-center">
                     <div class="col-12 col-md-8">
                         <form>
