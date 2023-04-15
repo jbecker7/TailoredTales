@@ -169,16 +169,18 @@
                                 <h1 class="display-2 font-weight-bolder mb-4">Generated Article</h1>
                                 <p class="lead mb-4 mb-lg-5">Here is the article tailored to your selected preferences. Enjoy reading!</p>
                             </div>
-                            <div class="generated-article">
+                            <div class="generated-article" style="margin: 40px auto; font-size: 1.2rem;">
                                 {{ generated_article_content | safe }}
                             </div>
+                            
                         </div>
                     </div>
-                    <div class="buttons-container">
+                    <div class="buttons-container" style="text-align: center;">
                         <button id="too-hard-btn" class="btn btn-danger">Too Hard</button>
                         <button id="too-easy-btn" class="btn btn-primary">Too Easy</button>
                         <button id="take-quiz-btn" class="btn btn-success">Take a Quiz</button>
                     </div>
+                    
                     <div id="loading" style="display: none;">
                         <p>Loading...</p>
                     </div>                    

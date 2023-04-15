@@ -182,10 +182,10 @@
                     {% for full_question, answer in quiz.items() %}
                     {% set question_parts = full_question.split('\n') %}
                     <p>{{ question_parts[0].strip() }}</p>
-                    {% for option in question_parts[1:-1] %}
+                    {% for option in question_parts[1:] %}
                         <div class="form-check">
-                            <input class="form-check-input" type="checkbox" name="{{ loop.index }}-{{ option[0] }}" id="{{ loop.index }}-{{ option[0] }}" data-correct-answer="{{ answer }}">
-                            <label class="form-check-label" for="{{ loop.index }}-{{ option[0] }}">
+                            <input class="form-check-input" type="checkbox" name="{{ loop.index }}-{{ option[1] }}" id="{{ loop.index }}-{{ option[0] }}" data-correct-answer="{{ answer }}">
+                            <label class="form-check-label" for="{{ loop.index }}-{{ option[1] }}">
                                 {{ option.strip() }}
                             </label>
                         </div>
@@ -243,6 +243,15 @@
 
         const correctAnswers = {
             "1": "A",
+            "2": "C",
+            "3": "B",
+            "4": "C",
+            "5": "D",
+            "6": "A",
+            "7": "C",
+            "8": "D",
+            "9": "B",
+            "10": "A",
             // Add more correct answers here
         };
 
