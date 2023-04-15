@@ -84,3 +84,10 @@ def get_response(previous_questions_and_answers, language, level, topic, length)
     )
     return completion.choices[0].message.content
 
+@app.route('/result', methods=['GET', 'POST'])
+
+def result():
+    if request.method == 'POST':
+        # Your POST handling logic here
+        pass
+    return render_template("result.html")
