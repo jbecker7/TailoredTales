@@ -1,4 +1,4 @@
-## 🌟 **TailoredTales: Your Personalized Language Learning Companion** 🌟
+## [🌟 **TailoredTales: Your Personalized Language Learning Companion** 🌟](https://youtu.be/cLQTQkkSoCs)
 <img src="https://user-images.githubusercontent.com/76632760/232184907-6f49b641-b2c9-4260-b4b2-3961a671dfa9.jpg" width=400>
 
 📚 **Extensive reading** is a highly effective approach to language learning that involves reading a large quantity of authentic texts in the target language. This approach is especially beneficial for language learners who are trying to improve their 📖 reading comprehension, vocabulary, and grammar skills.
